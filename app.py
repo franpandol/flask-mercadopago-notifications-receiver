@@ -3,10 +3,14 @@ import json
 import logging
 import sys
 import boto3
+from dotenv import load_dotenv
 
 from flask import Flask, request, abort, Response
 from botocore.exceptions import ClientError
 
+
+# Load environment variables
+load_dotenv('.env')
 
 # Initialize Flask app
 app = Flask(__name__)
