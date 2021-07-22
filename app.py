@@ -3,14 +3,24 @@ import json
 import logging
 import sys
 import boto3
+import sentry_sdk
+
 from dotenv import load_dotenv
 
 from flask import Flask, request, abort, Response
 from botocore.exceptions import ClientError
-
+from sentry_sdk.integrations.flask import FlaskIntegration
 
 # Load environment variables
+from dotenv import load_dotenv
+
 load_dotenv('.env')
+
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN"),
+    integrations=[FlaskIntegration()],
+    traces_sample_rate=1.0
+)
 
 # Initialize Flask app
 app = Flask(__name__)
